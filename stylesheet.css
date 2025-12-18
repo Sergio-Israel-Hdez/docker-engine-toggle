@@ -1,0 +1,18 @@
+/* Add your custom extension styling here */
+/* Clase cuando Docker está corriendo */
+.docker-whale-icon {
+    margin-right: 6px; /* Espacio entre la ballena y el icono */
+    font-size: 14px;
+}
+
+.docker-running {
+    color: #24d444; /* Verde */
+}
+
+.docker-stopped {
+    color: #ed333b; /* Rojo */
+}
+
+.system-status-icon.docker-icon {
+    icon-size: 14px;
+}

@@ -1,0 +1,8 @@
+{
+  "name": "docker engine toggle",
+  "description": "panel para detener o iniciar docker engine ",
+  "uuid": "docker-engine-toggle@sergioflores",
+  "shell-version": [
+    "42"
+  ]
+}
