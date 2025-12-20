@@ -31,16 +31,9 @@ class Extension {
             style_class: 'system-status-icon docker-icon',
         });
 
-        // 4. La cantidad de contenedores corriendo
-        this._containerCountLabel = new St.Label({
-            text: '0',
-            y_align: Clutter.ActorAlign.CENTER,
-        });
-
-        // 5. Metemos ambos en el Box y el Box en el indicador
+        // 4. Metemos ambos en el Box y el Box en el indicador
         box.add_child(this._dockerLabel);
         box.add_child(this._statusIcon);
-        box.add_child(this._containerCountLabel);
         this._indicator.add_child(box);
 
         // Menú
@@ -62,7 +55,6 @@ class Extension {
             this._indicator = null;
             this._statusIcon = null;
             this._dockerLabel = null;
-            this._containerCountLabel = null;
         }
     }
 
@@ -100,9 +92,6 @@ class Extension {
             if (active) {
                 this._statusIcon.remove_style_class_name('docker-stopped');
                 this._statusIcon.add_style_class_name('docker-running');
-                //si esta activo, actualizamos el contador de contenedores
-                let count = this._getRunningContainers();
-                this._containerCountLabel.text = `${count}`;
             } else {
                 this._statusIcon.remove_style_class_name('docker-running');
                 this._statusIcon.add_style_class_name('docker-stopped');
@@ -113,28 +102,6 @@ class Extension {
             return false;
         }
     }
-    _getRunningContainers() {
-        try {
-            let [ok, stdout] = GLib.spawn_command_line_sync(
-                'docker ps -q'
-            );
-
-            if (!ok)
-                return 0;
-
-            let lines = stdout
-                .toString()
-                .trim()
-                .split('\n')
-                .filter(l => l.length > 0);
-
-            return lines.length;
-        } catch (e) {
-            return 0;
-        }
-    }
-
-
 }
 
 function init() {
